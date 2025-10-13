@@ -156,21 +156,16 @@ API GROUPS:
      - completed
      - time
      - priority
-  
-  - PROJECT [/project]
     - UPDATE REQUEST [/project/<id>]: [ ProjectUpdateRequest] .....
      - project-Name
      - completed
      - time
      - priority
-  - PROJECT [/project]
     - POST RESPONSE [/project]: [ ProjectPostResponse] .....
      - project-Name
      - completed
      - time
      - priority
-  
-  - PROJECT [/project]
     - UPDATE RESPONSE [/project/<id>]: [ ProjectUpdateResponse] .....
      - project-Name
      - completed
@@ -236,7 +231,7 @@ todoApp
 │  ├─ schemas/
 │  │  ├─ __init__.py
 │  │  ├─ user.py
-│  │  ├─ project.py
+│  │  ├─ project.pycd
 │  │  └─ etc ...
 │  ├─ repositories/
 │  │  ├─ __init__.py
