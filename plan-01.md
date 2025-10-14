@@ -1,11 +1,26 @@
  Todo App
- - what is the app? definition and description --> app is a directory contains everything. and it has an empty file ``app/__init__.py``, so it is a "Python package". `app.`
- - who are the users? elaboration --> the users are users, wich are defined in the the app under the file module ``users.py``
+ - what is the app? definition and description 
+   - app is a directory contains everything. 
+   - and it has an empty file ``app/__init__.py``, so it is a "Python package". `app.`
+ - who are the users? elaboration
+   - the users are users, wich are defined in the the app under the file module ``users.py``
+   - they can create, update, delte or read creadentials
  - what are the activities performed in the app? bc, ac, rc
-    - business activities [bc] --> These are operational tasks like data entry, transaction processing, and workflow management that support day-to-day business functions. They ensure the smooth execution of organizational processes within the app.
-    - audit activities [ac] --> These involve verifying data accuracy, tracking user actions, and ensuring compliance with policies or standards. They help maintain transparency, accountability, and data integrity in the system.
-    - reporting activities --> These focus on generating summaries, dashboards, and analytical reports from collected data. They help users make informed decisions by visualizing trends and performance metrics.
- - scope of the app? --> The app’s scope defines what functions, users, and processes it covers — such as business operations, auditing, and reporting. It sets the boundaries and objectives of what the application is designed to achieve.
+    - business activities [bc]
+      - These are operational tasks like data entry, transaction processing, and workflow management that support day-to-day business functions.
+      - they are tasks or projects created, updated, delted or read by the users
+    - audit activities [ac]
+      - These involve verifying data accuracy, tracking user actions, and ensuring compliance with policies or standards. 
+      - They help maintain transparency, accountability, and data integrity in the system.
+      - Authentication of the user
+      - Authorazation of the users
+    - reporting activities
+      - These focus on generating summaries, dashboards, and analytical reports from collected data. 
+      - They help users make informed decisions by visualizing trends and performance metrics.
+      - it is an alert, that inform the users, if the create, update, delete or read successfull was or not.
+ - scope of the app?  
+   - The app’s scope defines what functions, users, and processes it covers — such as business operations, auditing, and reporting. 
+   - It sets the boundaries and objectives of what the application is designed to achieve.
 
 
 Actors: --> Actors are our Roles in this section

@@ -1,49 +1,81 @@
  Todo App
- - what is the app? definition and description --> app is a directory contains everything. and it has an empty file ``app/__init__.py``, so it is a "Python package". `app.`
- - who are the users? elaboration --> the users are users, wich are defined in the the app under the file module ``users.py``
+ - what is the app? definition and description
+ - who are the users? elaboration
  - what are the activities performed in the app? bc, ac, rc
-    - business activities [bc] --> These are operational tasks like data entry, transaction processing, and workflow management that support day-to-day business functions. They ensure the smooth execution of organizational processes within the app.
-    - audit activities [ac] --> These involve verifying data accuracy, tracking user actions, and ensuring compliance with policies or standards. They help maintain transparency, accountability, and data integrity in the system.
-    - reporting activities --> These focus on generating summaries, dashboards, and analytical reports from collected data. They help users make informed decisions by visualizing trends and performance metrics.
- - scope of the app? --> The app’s scope defines what functions, users, and processes it covers — such as business operations, auditing, and reporting. It sets the boundaries and objectives of what the application is designed to achieve.
+    - business activities [bc]
+    - audit activities [ac]
+    - reporting activities
+ - scope of the app?
 
 
-Actors:  --> Actors are our Roles in this section
+Actors:
  - USER
  - MANAGER
  - ADMIN
-  
-ENTITIES: --> TASKs and PROJECTs are our INTITIES, Objects that must be created on the user’s side.
+
+Activities:
+- USER RELATED ACTIVITIES
+   - CREATE USER
+   - UPDATE USER
+   - DELETE USER
+-  PROJECT RELATED ACTIVITIES
+   - CREATE PROJECT
+   - UPDATE PROJECT
+   - DELETE PROJECT
+- TASK RELATED ACTIVITIES
+   - CREATE TASK
+   - UPDATE TASK
+   - DELETE TASK
+- COMMON [ENUM]
+  - CREATE
+  - UPDATE 
+  - DELETE
+
+ENTITIES:
  - TASK
  - PROJECT
 
 MODEL:
  - USERS [WITH ROLES]
   - ID: [id] .....
-  - USERNAME: [username] ...
+  - FULL_NAME: [fullName] ...
   - EMAIL: [email] ....
   - PASSWORD: [password] ....
-  - Adress: [adress]
   - etc ....
-  - ROLES: [role] ....
+  - ROLES: [role:ENUM] ....
     - USER
     - MANAGER
     - ADMIN
-  
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
+  - IS_ACTIVE: [isActive:boolean] 
  - TASK
-   - task-id: [id]
-   - task: [task type]
-   - completed: [true or false]
-   - time: [time]
-   - priority:[priority]
-   - rate: [rate]
-  
+  - ID: [id] .....
+  - DESCRIPTION: [description]
+  - PROJECT_ID: [projectId:foreignKey]
+  - ASSIGNED_TO: [assignedTo:foreignKey]
+  - STATUS: [status:ENUM]
+    - ASSIGNED
+    - PENDING
+    - COMPLETED 
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
+  - IS_ACTIVE: [isActive:boolean] 
  - PROJECT
-   - project-ID: [ID]
-   - project-Name: [Pname]
-   - completed: [true or false]
-   - time: [time]
-   - priority:[priority]
+  - ID: [id] .....
+  - NAME: [name]
+  - DESCRIPTION: [description]
+  - OWNER_ID: [ownerId:foreignKey]
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
+  - IS_ACTIVE: [isActive:boolean] 
+- AUDIT
+  - ID: [id] .....
+  - ACTOR: [actor:foreignKey]
+  - ACTION: [action:general_activity]
+  - DETAIL: [detail:sub_activity]
+  - CREATED_AT: [createdAt:datetime]
+  - UPDATED_AT: [updatedAt:datetime]
 
 RELATIONS:
 - PROJECTS [MANY-ONE] MANAGER 
@@ -66,36 +98,24 @@ API GROUPS:
       - OWN USER
 
 - PROJECT  [/project]
-   - CREATE [POST] [/project]
+   - CREATE [POST] 
       - ADMIN [ FOR ALL]
       - MANAGER  [ OWN PROJECTS]
-   - UPDATE [PUT/PATCH] [/project/<id>]
+   - UPDATE [PUT/PATCH]
       - ADMIN [ FOR ALL]
       - MANAGER  [ OWN PROJECTS]
-   - DELETE [DELETE] [/project/<id>]
+   - DELETE [DELETE]
       - ADMIN [ FOR ALL]
       - MANAGER  [ OWN PROJECTS]  
-   - READ [GET] [/project/<id>]
+   - READ [GET]
       - ADMIN [ALL]
       - MANAGER  [ALL]
       - USER [ALL]
-  
-- TASK  [/task]
-   - CREATE [POST] [/task]
-      - ADMIN [ FOR ALL]
-      - MANAGER  [ OWN PROJECTS]
-   - UPDATE [PUT/PATCH] [/task/<id>]
-      - ADMIN [ FOR ALL]
-      - MANAGER  [ OWN PROJECTS]
-   - DELETE [DELETE] [/task/<id>]
-      - ADMIN [ FOR ALL]
-      - MANAGER  [ OWN PROJECTS]  
-   - READ [GET] [/task/<id>]
-      - ADMIN [ALL]
-      - MANAGER  [ALL]
-      - USER [ALL]
-  
+- etc ..... [tasks, audits]
 
+- BACKGROUND TASKS
+  - Audit background tasks
+ 
 - SCHEMAS [RESPONSE AND REQUEST]
   
   - USER [/user]
@@ -103,86 +123,36 @@ API GROUPS:
        - username
        - email 
        - password
-       - adress
+       - etc
      - POST RESPONSE [/user]: [ UserPostResponse] .....
        -  message
        -  status
        -  etc
-     - UPDATE REQUEST [/user/<id>]: [ UserUpdateRequest] .....
-       - username
-       - email 
-       - password
-       - adress
-     - UPDATE RESPONSE [/user/<id>]: [ UserUpdateResponse] .....
-       -  message
-       -  status
-     - DELETE RESPONSE [/user/<id>]: [ UserUpdateResponse] .....
-       -  message
-       -  status
-  
-  - TASK [/task]
-    - POST REQUEST [/task]: [ TaskPostRequest] .....
-     - task
-     - completed
-     - time
-     - priority
-     - rate
-    - UPDATE REQUEST [/task/<id>]: [ TaskUpdateRequest] .....
-     - task
-     - completed
-     - time
-     - priority
-     - rate
-    - POST RESPONSE [/task]: [ TaskPostRequest] .....
-     - task
-     - completed
-     - time
-     - priority
-     - rate
-    - UPDATE RESPONSE [/task/<id>]: [ TaskUpdateRequest] .....
-     - task
-     - completed
-     - time
-     - priority
-     - rate
-   - DELETE RESPONSE [/task/<id>]: [ TaskUpdateResponse] .....
-      -  message
-      -  status
+  - etc ...  
 
-
-  - PROJECT [/project]
-    - POST REQUEST [/project]: [ ProjectPostRequest] .....
-     - project-Name
-     - completed
-     - time
-     - priority
-    - UPDATE REQUEST [/project/<id>]: [ ProjectUpdateRequest] .....
-     - project-Name
-     - completed
-     - time
-     - priority
-    - POST RESPONSE [/project]: [ ProjectPostResponse] .....
-     - project-Name
-     - completed
-     - time
-     - priority
-    - UPDATE RESPONSE [/project/<id>]: [ ProjectUpdateResponse] .....
-     - project-Name
-     - completed
-     - time
-     - priority
-   - DELETE RESPONSE [/project/<id>]: [ ProjectDeleteResponse] .....
-     - message
-     - status
-  
 - REPOSITORIES:
-   ....coming soon..........
+   - USERS [CLASS]
+     -
+     -  
+   - PROJECTS [CLASS]
+     -
+     -  
+   - TASKS [CLASS]
+     -
+     -  
+   - AUDIT [CLASS]
+     -
+     -  
 
 - SERVICES:
-   ....coming soon..........
-
+   - ORM SERVICE [super class]
+     -  USER [sub class]
+     -  projects [sub class]
+     - etc ...
+     - 
 - DEPENDENCIES:
-   ....coming soon..........
+  - AUTHENTICATION
+  - AUTHORIZATION
 
 - TESTS:
   - INTEGRATION
@@ -231,7 +201,7 @@ todoApp
 │  ├─ schemas/
 │  │  ├─ __init__.py
 │  │  ├─ user.py
-│  │  ├─ project.pycd
+│  │  ├─ project.py
 │  │  └─ etc ...
 │  ├─ repositories/
 │  │  ├─ __init__.py
