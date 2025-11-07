@@ -42,6 +42,7 @@ class CSVFormatter(logging.Formatter):
 
 
 LOG_FILE = os.getenv("LOG_FILE", "/var/log/app.log")
+LOG_FORMAT = os.getenv("LOG_FORMAT", "json")
 
 
 def get_logger() -> None:
