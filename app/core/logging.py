@@ -48,9 +48,9 @@ def get_logger() -> None:
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.INFO)
     # "%(asctime)s - %(levelname)s - %(message)s"
-    if settings.LOG_FORMAT == "JSON":
+    if settings.LOG_FORMAT == "json":
         formatter = logging.Formatter(JSONFormatter)
-    elif settings.LOG_FORMAT == "CSV":
+    elif settings.LOG_FORMAT == "csv":
         formatter = logging.Formatter(CSVFormatter)
     else:
         None
