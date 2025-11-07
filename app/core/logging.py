@@ -55,7 +55,7 @@ def get_logger() -> None:
     else:
         None
 
-    file_handler = logging.FileHandler("app.log")
+    file_handler = logging.FileHandler(LOG_FILE)
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
 
