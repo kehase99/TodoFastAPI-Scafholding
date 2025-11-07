@@ -66,6 +66,8 @@ def get_logger() -> None:
     logger.addHandler(file_handler)
     logger.addHandler(stream_handler)
 
+    return logger
+
     # logging.basicConfig(
     #     filename=LOG_FILE,
     #     level=logging.INFO,
