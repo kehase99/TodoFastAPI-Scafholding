@@ -24,6 +24,7 @@ dependencies = [
     "ruff>=0.12.8",
     "scalar-fastapi>=1.2.3",
     "unicorn>=2.1.4",
+    "uv>=0.9.4",
     "uvicorn>=0.35.0",
 ]
 
