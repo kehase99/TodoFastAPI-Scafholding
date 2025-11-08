@@ -158,3 +158,9 @@ cython_debug/
 #  project, it is unlikely you want to ignore these files since they store project
 #  configurations that you may want to share with other developers.
 .idea/
+
+#files ignored by user
+app/core/adam_config.py
+app/core/adam_logging.py
+adam_config.py
+adam_logging.py

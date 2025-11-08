@@ -1,14 +1,12 @@
 import csv
 import json
 import logging
-import os
 from io import StringIO
 
-from dotenv import load_dotenv
-
+# from dotenv import load_dotenv
 from app.core.config import settings
 
-load_dotenv()
+# load_dotenv()
 
 
 # Custom logging formatters
@@ -41,8 +39,8 @@ class CSVFormatter(logging.Formatter):
         return self.output.getvalue().strip()
 
 
-LOG_FILE = os.getenv("LOG_FILE", "/var/log/app.log")
-LOG_FORMAT = os.getenv("LOG_FORMAT", "json")
+# LOG_FILE = os.getenv("LOG_FILE", "/var/log/app.log")
+# LOG_FORMAT = os.getenv("LOG_FORMAT", "json")
 
 
 def get_logger() -> None:
@@ -56,15 +54,15 @@ def get_logger() -> None:
     else:
         None
 
-    file_handler = logging.FileHandler(LOG_FILE)
+    file_handler = logging.FileHandler(settings.LOG_FILE)
     file_handler.setLevel(logging.INFO)
     file_handler.setFormatter(formatter)
 
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
+    # stream_handler = logging.StreamHandler()
+    # stream_handler.setFormatter(formatter)
 
     logger.addHandler(file_handler)
-    logger.addHandler(stream_handler)
+    # logger.addHandler(stream_handler)
 
     return logger
 
