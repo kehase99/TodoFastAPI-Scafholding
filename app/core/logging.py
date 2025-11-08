@@ -63,6 +63,7 @@ def get_logger() -> None:
 
     logger.addHandler(file_handler)
     logger.addHandler(stream_handler)
+    logger.error("Error message (will go to file)")
 
     return logger
 
