@@ -160,7 +160,4 @@ cython_debug/
 .idea/
 
 #files ignored by user
-app/core/adam_config.py
-app/core/adam_logging.py
-adam_config.py
-adam_logging.py
+app/core/adams_examle_code/
