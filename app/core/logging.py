@@ -43,19 +43,27 @@ class CSVFormatter(logging.Formatter):
 # LOG_FORMAT = os.getenv("LOG_FORMAT", "json")
 
 
-def get_logger() -> None:
-    logger = logging.getLogger(__name__)
-    logger.setLevel(logging.INFO)
+def get_logger(name: str) -> None:
+    logger = logging.getLogger(name)
+    logger.setLevel(settings.log.level.upper())
+    # settings.LOG_LEVEL
     # "%(asctime)s - %(levelname)s - %(message)s"
-    if settings.LOG_FORMAT == "json":
-        formatter = logging.Formatter(JSONFormatter)
-    elif settings.LOG_FORMAT == "csv":
-        formatter = logging.Formatter(CSVFormatter)
-    else:
-        None
+    formatter = logging.Formatter(
+        "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    )
+    # if settings.log.format == "json":
+    #     from pythonjsonlogger import jsonlogger
 
-    file_handler = logging.FileHandler(settings.LOG_FILE)
-    file_handler.setLevel(logging.INFO)
+    #     formatter = jsonlogger.JSONFormatter()
+    # elif settings.log.format == "csv":
+    #     formatter = logging.Formatter(
+    #         "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    #     )
+    # else:
+    #     None
+
+    file_handler = logging.FileHandler(settings.log.file)
+    file_handler.setLevel(settings.log.level.upper())
     file_handler.setFormatter(formatter)
 
     stream_handler = logging.StreamHandler()
@@ -63,6 +71,9 @@ def get_logger() -> None:
 
     logger.addHandler(file_handler)
     logger.addHandler(stream_handler)
+    logger.debug("debug message (will go to file)")
+    logger.info("info message (will go to file)")
+    logger.warning("warning message (will go to file)")
     logger.error("Error message (will go to file)")
 
     return logger
