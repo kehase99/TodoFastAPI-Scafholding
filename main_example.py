@@ -23,7 +23,7 @@ async def health() -> dict:
     print(settings.app_name)
     print(settings.app_version)
     return {
-        "status": "healthy",
+        "status": "healthy test",
         "config_source": settings.config_source,
         "app_name": settings.app_name,
         "version": settings.app_version,
