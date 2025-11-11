@@ -161,3 +161,4 @@ cython_debug/
 
 #files ignored by user
 app/core/adams_examle_code/
+main_example.py
