@@ -159,7 +159,7 @@ cython_debug/
 #  configurations that you may want to share with other developers.
 .idea/
 
+#.vscode
+/.vscode
 #files ignored by user
 app/core/adams_examle_code/
-/main_example.py
-TodoFastAPI-Scafholding/.vscode/
