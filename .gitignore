@@ -160,6 +160,6 @@ cython_debug/
 .idea/
 
 #.vscode
-/.vscode
+.vscode
 #files ignored by user
 app/core/adams_examle_code/
