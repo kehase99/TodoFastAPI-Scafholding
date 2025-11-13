@@ -12,17 +12,15 @@ app = FastAPI(
 )
 
 # Log configuration source on startup
-
 logger = get_logger(__name__)
-# logger.info(f"🔧 Configuration: {settings.log.level}")
-print(logger)
+logger.info(f"🔧 Configuration: {settings.log.level}")
 
 
 @app.get("/health")
 async def health() -> dict:
-    # print(settings.config_source)
-    print(settings.app.name)
-    print(settings.app.version)
+    # logger.info(settings.config_source)
+    logger.info("this is the name of the app '{settings.app.name}'")
+    logger.info("this is the version of the app '{settings.app.version}'")
     return {
         "status": "healthy",
         "config_source": "settings.config_source",
@@ -33,7 +31,5 @@ async def health() -> dict:
 
 if __name__ == "__main__":
     uvicorn.run(
-        app,
-        host=settings.app.host,
-        port=settings.app.port,
+        app, host=settings.app.host, port=settings.app.port, reload=settings.app.reload
     )

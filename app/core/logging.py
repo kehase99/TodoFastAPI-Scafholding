@@ -3,10 +3,7 @@ import json
 import logging
 from io import StringIO
 
-# from dotenv import load_dotenv
 from app.core.config import settings
-
-# load_dotenv()
 
 
 # Custom logging formatters
@@ -39,15 +36,9 @@ class CSVFormatter(logging.Formatter):
         return self.output.getvalue().strip()
 
 
-# LOG_FILE = os.getenv("LOG_FILE", "/var/log/app.log")
-# LOG_FORMAT = os.getenv("LOG_FORMAT", "json")
-
-
 def get_logger(name: str) -> None:
     logger = logging.getLogger(name)
     logger.setLevel(settings.log.level.upper())
-    # settings.LOG_LEVEL
-    # "%(asctime)s - %(levelname)s - %(message)s"
     formatter = logging.Formatter(
         "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
@@ -77,10 +68,3 @@ def get_logger(name: str) -> None:
     logger.error("Error message (will go to file)")
 
     return logger
-
-    # logging.basicConfig(
-    #     filename=LOG_FILE,
-    #     level=logging.INFO,
-    #     format=JSONFormatter(),
-    #     handlers=[logging.StreamHandler()],
-    # )
