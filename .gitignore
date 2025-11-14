@@ -158,8 +158,3 @@ cython_debug/
 #  project, it is unlikely you want to ignore these files since they store project
 #  configurations that you may want to share with other developers.
 .idea/
-
-#.vscode
-.vscode
-#files ignored by user
-app/core/adams_examle_code/

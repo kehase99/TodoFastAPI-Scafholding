@@ -46,23 +46,23 @@ exclude = [
 [lint]
 # Enable specific rule sets
 select = [
-    "E",   # pycodestyle errors
-    "W",   # pycodestyle warnings
-    "F",   # Pyflakes
-    "UP",  # pyupgrade
-    "B",   # flake8-bugbear
-    "SIM", # flake8-simplify
-    "I",   # isort
-    "N",   # pep8-naming
-    "DJ",  # flake8-django
-    "C4",  # flake8-comprehensions
-    "DTZ", # flake8-datetimez
-    "T20", # flake8-print
-    "RET", # flake8-return
-    "PIE", # flake8-pie
-    "PT",  # flake8-pytest-style
-    "ERA", # eradicate
-    "RUF", # Ruff-specific rules
+    "E",      # pycodestyle errors
+    "W",      # pycodestyle warnings
+    "F",      # Pyflakes
+    "UP",     # pyupgrade
+    "B",      # flake8-bugbear
+    "SIM",    # flake8-simplify
+    "I",      # isort
+    "N",      # pep8-naming
+    "DJ",     # flake8-django
+    "C4",     # flake8-comprehensions
+    "DTZ",    # flake8-datetimez
+    "T20",    # flake8-print
+    "RET",    # flake8-return
+    "PIE",    # flake8-pie
+    "PT",     # flake8-pytest-style
+    "ERA",    # eradicate
+    "RUF",    # Ruff-specific rules
 ]
 
 # Disable specific rules that might be too strict for Django
@@ -78,7 +78,7 @@ ignore = [
     # Note: E1101 Instance of 'Style' has no 'SUCCESS', not a Ruff code
     # Note: C0114 is a Pylint code (missing-module-docstring), not a Ruff code
     # Ruff equivalent would be D100 from pydocstyle
-    "D100", # missing-module-docstring (module docstring)
+    "D100",  # missing-module-docstring (module docstring)
 ]
 
 # Allow fix for all enabled rules
@@ -90,15 +90,13 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 
 [lint.per-file-ignores]
 # Ignore specific rules for specific files
-"__init__.py" = ["F401"] # Allow unused imports in __init__.py files
-"*/settings.py" = ["F403", "F405"] # Allow star imports in Django settings
-"*/test_*.py" = ["S101", "T201"] # Allow assert statements and print in tests
-"*/tests.py" = ["S101", "T201"] # Allow assert statements and print in tests
-"*/conftest.py" = ["F401"] # Allow unused imports in conftest.py
-"main.py" = ["T201"] # Allow print statements in main.py
-"pydj_auth/tests/test_docker_compose.py" = [
-    "ALL",
-] # Ignore all rules in docker_compose test file
+"__init__.py" = ["F401"]  # Allow unused imports in __init__.py files
+"*/settings.py" = ["F403", "F405"]  # Allow star imports in Django settings
+"*/test_*.py" = ["S101", "T201"]  # Allow assert statements and print in tests
+"*/tests.py" = ["S101", "T201"]   # Allow assert statements and print in tests
+"*/conftest.py" = ["F401"]        # Allow unused imports in conftest.py
+"main.py" = ["T201"]              # Allow print statements in main.py
+"pydj_auth/tests/test_docker_compose.py" = ["ALL"]  # Ignore all rules in docker_compose test file
 
 [lint.isort]
 # Django-compatible import sorting

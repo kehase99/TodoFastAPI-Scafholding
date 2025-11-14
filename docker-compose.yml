@@ -7,8 +7,6 @@ services:
     env_file: .env
     ports:
       - "${APP_PORT}:8000"
-    volumes:
-      - ./log:/var/log
     depends_on:
       mongo:
         condition: service_healthy
@@ -61,4 +59,4 @@ services:
 volumes:
   mongo-data:
   mongo-config:
-  redis-data:
+  redis-data: 
