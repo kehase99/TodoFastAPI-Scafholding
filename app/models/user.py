@@ -1,5 +1,6 @@
+from datetime import datetime
+
 from beanie import Document
-from models.base import BaseDoc
 from models.enums import Role
 from pydantic import BaseModel
 
@@ -9,9 +10,9 @@ class Users(Document):
     email: str
     password: str
     roles: Role
-    created_at: BaseDoc.created_at
-    updated_at: BaseDoc.updated_at
-    is_active: BaseDoc.is_active
+    created_at: datetime
+    updated_at: datetime
+    is_active: bool
 
     class Settings:
         name = "users"
@@ -22,9 +23,9 @@ class CreateUserRequest(BaseModel):
     email: str
     password: str
     roles: Role
-    created_at: BaseDoc.created_at
-    updated_at: BaseDoc.updated_at
-    is_active: BaseDoc.is_active
+    created_at: datetime
+    updated_at: datetime
+    is_active: bool
 
 
 class UserResponse(BaseModel):
@@ -33,6 +34,6 @@ class UserResponse(BaseModel):
     email: str
     password: str
     roles: Role
-    created_at: BaseDoc.created_at
-    updated_at: BaseDoc.updated_at
-    is_active: BaseDoc.is_active
+    created_at: datetime
+    updated_at: datetime
+    is_active: bool
