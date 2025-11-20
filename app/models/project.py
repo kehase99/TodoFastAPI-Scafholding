@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from beanie import Document
+from app.models.base import BaseDoc
 
 
-class Project(Document):
+class Project(BaseDoc):
     name: str
     description: str
     owner_id: int

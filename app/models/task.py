@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from beanie import Document
-from models.enums import TaskStatus
+from app.models.base import BaseDoc
+from app.models.enums import TaskStatus
 
 
-class Task(Document):
+class Task(BaseDoc):
     description: str
     project_id: int
     assigned_to: int

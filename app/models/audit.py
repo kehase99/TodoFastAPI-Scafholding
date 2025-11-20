@@ -1,9 +1,9 @@
 from datetime import datetime
 
-from beanie import Document
+from app.models.base import BaseDoc
 
 
-class Audit(Document):
+class Audit(BaseDoc):
     actor: int
     action: str
     deatil: str

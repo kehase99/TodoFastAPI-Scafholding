@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from beanie import Document
-from models.enums import Role
+from app.models.base import BaseDoc
+from app.models.enums import Role
 
 
-class Users(Document):
+class Users(BaseDoc):
     username: str
     email: str
     password: str
