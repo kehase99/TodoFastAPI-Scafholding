@@ -1,10 +1,13 @@
 from datetime import datetime
+from typing import ClassVar
+
+from pymongo import ASCENDING, TEXT, IndexModel
 
 from app.models.base import BaseDoc
 from app.models.enums import Role
 
 
-class Users(BaseDoc):
+class User(BaseDoc):
     username: str
     email: str
     password: str
@@ -14,4 +17,7 @@ class Users(BaseDoc):
     is_active: bool
 
     class Settings:
-        name = "users"
+        name: ClassVar[str] = "users"
+        indexes: ClassVar[list[IndexModel]] = [
+            IndexModel([("name", TEXT), ("created_at", ASCENDING)])
+        ]

@@ -1,4 +1,7 @@
 from datetime import datetime
+from typing import ClassVar
+
+from pymongo import ASCENDING, TEXT, IndexModel
 
 from app.models.base import BaseDoc
 from app.models.enums import TaskStatus
@@ -14,4 +17,7 @@ class Task(BaseDoc):
     is_active: bool
 
     class Settings:
-        name = "tasks"
+        name: ClassVar[str] = "tasks"
+        indexes: ClassVar[list[IndexModel]] = [
+            IndexModel([("description", TEXT), ("created_at", ASCENDING)])
+        ]

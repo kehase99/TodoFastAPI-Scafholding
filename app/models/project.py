@@ -1,4 +1,7 @@
 from datetime import datetime
+from typing import ClassVar
+
+from pymongo import ASCENDING, TEXT, IndexModel
 
 from app.models.base import BaseDoc
 
@@ -12,4 +15,7 @@ class Project(BaseDoc):
     is_active: bool
 
     class Settings:
-        name = "projects"
+        name: ClassVar[str] = "projects"
+        indexes: ClassVar[list[IndexModel]] = [
+            IndexModel([("description", TEXT), ("created_at", ASCENDING)])
+        ]

@@ -3,12 +3,14 @@ from fastapi import FastAPI
 
 from app.core.config import settings
 from app.core.logging import get_logger
+from app.core.mongo import beanie_lifespan
 
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description=settings.app_description,
     debug=settings.app_debug,
+    lifespan=beanie_lifespan,
 )
 
 # Log configuration source on startup
