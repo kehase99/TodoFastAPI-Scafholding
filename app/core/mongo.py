@@ -13,11 +13,12 @@ from app.models.project import Project
 from app.models.task import Task
 from app.models.user import User
 
+DOCUMENT_MODELS = [Task, Project, User, Audit]
+
 _client: AsyncIOMotorClient | None = None
 _database: AsyncIOMotorDatabase | None = None
 
 logger = get_logger(__name__)
-DOCUMENT_MODELS = [Task, Project, User, Audit]
 
 
 async def _wait_for_mongo(

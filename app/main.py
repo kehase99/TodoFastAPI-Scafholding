@@ -1,16 +1,28 @@
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+
 import uvicorn
 from fastapi import FastAPI
 
 from app.core.config import settings
 from app.core.logging import get_logger
 from app.core.mongo import beanie_lifespan
+from app.core.redis import redis_lifespan
+
+
+@asynccontextmanager
+async def lifespan(app: FastAPI) -> AsyncIterator[None]:
+    await redis_lifespan()
+    await beanie_lifespan()
+    yield
+
 
 app = FastAPI(
     title=settings.app_name,
     version=settings.app_version,
     description=settings.app_description,
     debug=settings.app_debug,
-    lifespan=beanie_lifespan,
+    lifespan=lifespan,
 )
 
 # Log configuration source on startup
