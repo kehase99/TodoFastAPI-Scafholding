@@ -1,11 +1,10 @@
-from datetime import UTC, datetime
+from datetime import datetime
+from time import timezone
 
 from beanie import Document, Insert, Replace, Save, before_event
 from pydantic import Field
 
-
-def utcnow() -> datetime:
-    return datetime.now(tz=UTC)
+utcnow = lambda: datetime.now(timezone.utc)
 
 
 class BaseDoc(Document):
@@ -15,7 +14,7 @@ class BaseDoc(Document):
 
     @before_event([Insert, Save, Replace])
     def _update_timestamp(self) -> None:
-        self.updated_at = utcnow()
+        self.updated_at = utcnow
 
     class Settings:
         validate_on_save = True
