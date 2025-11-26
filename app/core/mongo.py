@@ -1,7 +1,6 @@
 import asyncio
 from collections.abc import AsyncIterator
 from contextlib import asynccontextmanager
-from typing import Any, cast
 
 from beanie import init_beanie
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase
@@ -61,9 +60,10 @@ async def beanie_lifespan() -> AsyncIterator[None]:
         await _wait_for_mongo(_client)
         await get_db()
         # set up client / beanie initialization here
-        await init_beanie(
-            database=cast(Any, _database), document_models=DOCUMENT_MODELS
-        )
+        # await init_beanie(
+        #     database=cast(Any, _database), document_models=DOCUMENT_MODELS
+        # )
+        await init_beanie(database=_client(_database), document_models=DOCUMENT_MODELS)
         yield
     except Exception:
         logger.error("Error initializes of **Beanie** {e}")

@@ -13,8 +13,8 @@ from app.core.redis import redis_lifespan
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
     await redis_lifespan()
-    await beanie_lifespan()
     yield
+    await beanie_lifespan()
 
 
 app = FastAPI(

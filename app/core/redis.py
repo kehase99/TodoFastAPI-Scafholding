@@ -12,7 +12,7 @@ _redis: Redis | None = None
 
 
 def _build_redis() -> Redis:
-    kwargs: dict = {  
+    kwargs: dict = {
         "decode_responses": settings.redis_decode_responses,
         "socket_connect_timeout": settings.redis_socket_connect_timeout,
         "socket_timeout": settings.redis_socket_timeout,
@@ -31,15 +31,16 @@ def _build_redis() -> Redis:
         )
 
     redis_url = str(settings.redis_url)
-    client =  Redis.from_url(redis_url, **kwargs)
-    return client   # connection object  = client
+    client = Redis.from_url(redis_url, **kwargs)
+    return client  # connection object  = client
+
 
 # READINESS PROBE
 async def _wait_for_redis(
     client: Redis, *, attempts: int = 20, delay: float = 0.25
 ) -> bool | None:
     last_exc: Exception | None = None
-    
+
     """
     attempt 1:
             pong = True
@@ -49,7 +50,9 @@ async def _wait_for_redis(
     for _ in range(attempts):
         try:
             # ping = you pushing the ball redis
-            pong = await client.ping() # object tha represent redis db | connection object
+            pong = (
+                await client.ping()
+            )  # object tha represent redis db | connection object
             # pong = redis pushing the bal back to you
             # if pong is false = redis did no receive the ball or did nt push back the ball indicating redis is not ready
             # if true = redis is alive and ready
@@ -71,8 +74,9 @@ def get_redis() -> Redis:
         raise RuntimeError("Redis client not initialized. Use within app lifespan.")
     return _client
 
-# lifespan 
-# redis should be ready =_wait_for_redis 
+
+# lifespan
+# redis should be ready =_wait_for_redis
 # get redis need to get a built connection ? = _build_redis()
 @asynccontextmanager
 async def redis_lifespan() -> AsyncIterator[None]:
@@ -85,8 +89,8 @@ async def redis_lifespan() -> AsyncIterator[None]:
             async with redis_lifespan():
                 yield
     """
-    global _client 
-    _client = _build_redis() # redis client or connection object 
+    global _client
+    _client = _build_redis()  # redis client or connection object
     await _wait_for_redis(_client)
     try:
         yield
