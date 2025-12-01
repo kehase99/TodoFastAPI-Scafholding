@@ -12,9 +12,15 @@ from app.core.redis import redis_lifespan
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
-    await redis_lifespan()
-    yield
-    await beanie_lifespan()
+    try:
+        await redis_lifespan()
+        yield
+
+    except Exception as e:
+        print(f"Error in appliccation lifespan: {e}")
+        raise
+    finally:
+        await beanie_lifespan()
 
 
 app = FastAPI(
