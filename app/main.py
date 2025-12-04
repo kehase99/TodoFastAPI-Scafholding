@@ -9,6 +9,11 @@ from app.core.logging import get_logger
 from app.core.mongo import beanie_lifespan
 from app.core.redis import redis_lifespan
 
+# Log configuration source on startup
+
+logger = get_logger(__name__)
+logger.info(f"🔧 Configuration: {settings.config_source}")
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncIterator[None]:
@@ -31,11 +36,6 @@ app = FastAPI(
     debug=settings.app_debug,
     lifespan=lifespan,
 )
-
-# Log configuration source on startup
-
-logger = get_logger(__name__)
-logger.info(f"🔧 Configuration: {settings.config_source}")
 
 
 @app.get("/health")
