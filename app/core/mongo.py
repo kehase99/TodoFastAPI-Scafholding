@@ -49,59 +49,34 @@ async def get_db() -> AsyncIOMotorDatabase | None:
     return _database
 
 
-# @asynccontextmanager
-# async def beanie_lifespan() -> AsyncIterator[None]:
-#     """
-#     Creates Motor client from settings, waits for Mongo,
-#     initializes **Beanie** with your Document models, then closes on shutdown.
-#     """
-#     global _client, _database
-#     # _client = AsyncIOMotorClient(settings.mongodb_uri())
-#     # _database = _client(settings.database_name)
-
-#     mongodb_uri = str(settings.mongodb_uri)
-#     _client = AsyncIOMotorClient(mongodb_uri)
-
-#     try:
-#         await _wait_for_mongo(_client)
-#         await get_db()
-#         # set up client / beanie initialization here
-#         await init_beanie(
-#             database=cast(Any, _database), document_models=DOCUMENT_MODELS
-#         )
-
-
-#         yield
-#     except Exception:
-#         logger.error("Error initializes of **Beanie** {e}")
-#         RuntimeError("Error initializes of **Beanie** {e}")
-#     finally:
-#         if _client:
-#             _client.close()
-#     # cleanup / close client here
 @asynccontextmanager
 async def beanie_lifespan() -> AsyncIterator[None]:
     """
     Creates Motor client from settings, waits for Mongo,
-    initializes *Beanie* with your Document models, then closes on shutdown.
+    initializes **Beanie** with your Document models, then closes on shutdown.
     """
-    global _client
-    # settings.mongodb_uri is a string property, not a callable
+    global _client, _database
+    # _client = AsyncIOMotorClient(settings.mongodb_uri())
+    # _database = _client(settings.database_name)
+
     mongodb_uri = str(settings.mongodb_uri)
     _client = AsyncIOMotorClient(mongodb_uri)
 
-    # Wait for Mongo to be reachable
-    await _wait_for_mongo(_client)
-
     try:
-        db = cast(Any, _client[settings.database_name])
+        await _wait_for_mongo(_client)
+        await get_db()
+        # set up client / beanie initialization here
         await init_beanie(
-            database=db,
+            database=cast(Any, _client[settings.database_name]),
             document_models=DOCUMENT_MODELS,
         )
+
         yield
+    except Exception:
+        logger.error("Error initializes of **Beanie** {e}")
+        RuntimeError("Error initializes of **Beanie** {e}")
     finally:
-        # Close Motor client (Beanie uses Motor's connection)
-        if _client is not None:
+        if _client:
             _client.close()
             _client = None
+    # cleanup / close client here
