@@ -24,6 +24,7 @@ async def lifespan(app: FastAPI) -> AsyncIterator[None]:
 
     except Exception as e:
         print(f"Error in appliccation lifespan: {e}")
+        logger.error(f"Error in appliccation lifespan: {e}")
         raise
     finally:
         pass
