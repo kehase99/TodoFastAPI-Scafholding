@@ -1,7 +1,12 @@
 # from __future__ import annotations
-from pydantic import BaseModel
+from typing import Generic, TypeVar
 
+from pydantic import BaseModel, ConfigDict, EmailStr, Field
+
+from app.models.enums import Role
 from app.schemas.common import ResponseEnvelope
+
+T = TypeVar("T")
 
 
 class UserPostRequest(BaseModel):
@@ -16,9 +21,20 @@ class UserPostRequest(BaseModel):
     Extra fields are ignored to keep the payload strict but flexible.
     """
 
+    model_config = ConfigDict(extra="ignore")
+    username: str
+    email: EmailStr
+    password: str
+    # roles:
 
-class UserRead(BaseModel):
+
+class UserRead(BaseModel, Generic[T]):
     """Shape of user returned by the API (no password)."""
+
+    id: str = Field(serialization_alias="id")
+    username: str
+    email: EmailStr
+    roles: Role[T]
 
 
 class UserPostResponse(ResponseEnvelope[UserRead]):
