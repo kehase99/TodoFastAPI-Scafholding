@@ -34,7 +34,7 @@ class UserRead(BaseModel, Generic[T]):
     id: str = Field(serialization_alias="id")
     username: str
     email: EmailStr
-    roles: Role[T]
+    roles: Role
 
 
 class UserPostResponse(ResponseEnvelope[UserRead]):
