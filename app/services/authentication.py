@@ -11,10 +11,13 @@ Expectations:
 """
 
 from collections.abc import Mapping, Sequence
-from datetime import timedelta
+from datetime import datetime, timedelta
 from typing import Any
 
 import bcrypt
+import jwt
+
+from app.core.config import settings
 
 
 def hash_password(plain_password: str) -> str:
@@ -85,7 +88,16 @@ def create_access_token(
     Example:
     - create_access_token("user-123", roles=["USER"]) -> "eyJhbGciOi..."
     """
-    return ""
+    to_dict = {"subject": subject, "roles": roles, "expires_delta": expires_delta}
+
+    expire = datetime.now(datetime.UTC) + timedelta(
+        minutes=settings.security_access_token_expire_minutes
+    )
+    to_dict.update({"expires_delta": expire})
+    encoded_jwt = jwt.encode(
+        to_dict, settings.security_secret_key, algorithm=settings.security_jwt_algorithm
+    )
+    return encoded_jwt
 
 
 def decode_access_token(token: str) -> dict[str, Any]:
@@ -101,4 +113,16 @@ def decode_access_token(token: str) -> dict[str, Any]:
     - Avoid mutating input token; treat it as opaque data.
     - Consider clock skew allowances when validating `exp`.
     """
-    return {"key": "val"}
+    try:
+        decoded_token = jwt.decode(
+            token,
+            settings.security_secret_key,
+            algorithms=[settings.security_jwt_algorithm],
+        )
+        return (
+            decoded_token
+            if decoded_token["expires_delta"] >= datetime.now(datetime.UTC)
+            else None
+        )
+    except jwt.PyJWTError:
+        return None
