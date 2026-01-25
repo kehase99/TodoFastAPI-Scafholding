@@ -56,8 +56,8 @@ def verify_password(plain_password: str, hashed_password: bytes) -> bool:
     - Avoid timing leaks by delegating to bcrypt's constant-time comparison.
     """
     password = plain_password.encode("utf-8")
-    check_passord = bcrypt.checkpw(password, hashed_password)
-    if check_passord:
+    check_password = bcrypt.checkpw(password, hashed_password)
+    if check_password:
         return True
     return False
 
