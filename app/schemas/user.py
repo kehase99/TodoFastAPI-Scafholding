@@ -25,7 +25,7 @@ class UserPostRequest(BaseModel):
     username: str
     email: EmailStr
     password: str
-    # roles:
+    roles: list[Role]
 
 
 class UserRead(BaseModel, Generic[T]):
@@ -34,7 +34,7 @@ class UserRead(BaseModel, Generic[T]):
     id: str = Field(serialization_alias="id")
     username: str
     email: EmailStr
-    roles: Role
+    roles: list[Role]
 
 
 class UserPostResponse(ResponseEnvelope[UserRead]):
