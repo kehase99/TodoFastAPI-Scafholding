@@ -34,7 +34,7 @@ def has_role(user_roles: Iterable[str], required_role: str) -> bool:
     - has_role([], "USER") -> False
     """
     if len(user_roles) != 0:
-        for user_role in user_roles:
+        for user_role in set(user_roles):
             if isinstance(user_role, str):
                 if user_role == required_role:
                     return True
