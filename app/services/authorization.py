@@ -36,12 +36,15 @@ def has_role(user_roles: Iterable[str], required_role: str) -> bool:
     if len(user_roles) != 0:
         for user_role in set(user_roles):
             if isinstance(user_role, str):
-                if user_role == required_role:
+                if user_role.upper() == required_role.upper():
                     return True
                 else:
                     return False
             else:
-                return False
+                if str(user_role).upper() == required_role.upper():
+                    return True
+                else:
+                    return False
     return False
 
 
